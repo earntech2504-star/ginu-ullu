@@ -24,16 +24,12 @@ box-sizing:border-box;
 }
 
 body{
-
 font-family:'Noto Sans Devanagari',sans-serif;
-
 background:linear-gradient(to bottom,#8ED6FF,#ffffff);
-
 overflow-x:hidden;
-
 color:#111;
-
 transition:.3s;
+min-height:100vh;
 }
 
 .dark{
@@ -42,97 +38,67 @@ color:#fff;
 }
 
 header{
-
 background:#FFD93D;
-
 padding:14px;
-
 border-bottom:4px solid #000;
-
 position:sticky;
-
 top:0;
-
 z-index:999;
 }
 
 .topbar{
-
 max-width:1200px;
-
 margin:auto;
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
 flex-wrap:wrap;
-
 gap:10px;
 }
 
 .logo{
-
 display:flex;
-
 align-items:center;
-
 gap:12px;
-
 font-size:28px;
-
 font-weight:900;
 }
 
 .owl{
-
 width:60px;
-
 height:60px;
-
 background:#000;
-
 color:#fff;
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
 border-radius:18px;
-
 font-size:35px;
+animation:wiggle 3s infinite;
+}
+
+@keyframes wiggle{
+0%,100%{transform:rotate(0deg);}
+25%{transform:rotate(5deg);}
+75%{transform:rotate(-5deg);}
 }
 
 .top-buttons{
-
 display:flex;
-
 gap:10px;
-
 flex-wrap:wrap;
 }
 
 .btn{
-
 background:#000;
-
 color:#fff;
-
 border:none;
-
 padding:12px 18px;
-
 border-radius:14px;
-
 font-weight:700;
-
 cursor:pointer;
-
 transition:.2s;
+font-size:16px;
 }
 
 .btn:hover{
@@ -140,22 +106,15 @@ transform:scale(1.05);
 }
 
 .hero{
-
 padding:40px 20px;
 }
 
 .hero-inner{
-
 max-width:1200px;
-
 margin:auto;
-
 display:grid;
-
 grid-template-columns:1fr 1fr;
-
 gap:30px;
-
 align-items:center;
 }
 
@@ -168,16 +127,24 @@ grid-template-columns:1fr;
 }
 
 .hero-card{
-
 background:#fff;
-
 padding:30px;
-
 border-radius:30px;
-
 border:4px solid #000;
-
 box-shadow:0 10px 0 rgba(0,0,0,.2);
+position:relative;
+overflow:hidden;
+}
+
+.hero-card::after{
+content:'';
+position:absolute;
+width:200px;
+height:200px;
+background:rgba(255,255,255,.3);
+border-radius:50%;
+top:-50px;
+right:-50px;
 }
 
 .dark .hero-card{
@@ -185,38 +152,26 @@ background:#222;
 }
 
 .greet{
-
 font-size:45px;
-
 font-weight:900;
-
 margin-bottom:10px;
 }
 
 .bubble{
-
 margin-top:20px;
-
 background:#000;
-
 color:#fff;
-
 padding:18px;
-
 border-radius:20px;
-
 font-size:20px;
-
 line-height:1.6;
 }
 
 .bigowl{
-
 font-size:180px;
-
 text-align:center;
-
 animation:float 3s infinite ease-in-out;
+filter:drop-shadow(0 10px 10px rgba(0,0,0,.2));
 }
 
 @keyframes float{
@@ -232,61 +187,62 @@ transform:translateY(-20px);
 }
 
 .section{
-
 max-width:1200px;
-
 margin:auto;
-
 padding:20px;
 }
 
 .section h2{
-
 font-size:35px;
-
 margin-bottom:20px;
 }
 
 .grid{
-
 display:grid;
-
 grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-
 gap:20px;
 }
 
 .card{
-
 padding:25px;
-
 border-radius:25px;
-
 border:4px solid #000;
-
 cursor:pointer;
-
-transition:.2s;
-
+transition:.25s;
 min-height:180px;
-
 position:relative;
+overflow:hidden;
+}
+
+.card::before{
+content:'';
+position:absolute;
+inset:0;
+background:rgba(255,255,255,.15);
+opacity:0;
+transition:.2s;
+}
+
+.card:hover::before{
+opacity:1;
 }
 
 .card:hover{
-
-transform:translateY(-10px) rotate(-1deg);
+transform:translateY(-10px) rotate(-1deg) scale(1.02);
 }
 
 .emoji{
-
 font-size:60px;
+animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-8px);}
 }
 
 .card h3{
-
 margin-top:15px;
-
 font-size:30px;
 }
 
@@ -300,28 +256,18 @@ font-size:30px;
 .c8{background:#FFC6FF;}
 
 .stats{
-
 display:flex;
-
 gap:15px;
-
 flex-wrap:wrap;
-
 margin-top:20px;
 }
 
 .stat{
-
 background:#fff;
-
 border:3px solid #000;
-
 padding:15px;
-
 border-radius:18px;
-
 font-weight:900;
-
 font-size:20px;
 }
 
@@ -330,21 +276,13 @@ background:#222;
 }
 
 .modal-bg{
-
 position:fixed;
-
 inset:0;
-
 background:rgba(0,0,0,.6);
-
 display:none;
-
 align-items:center;
-
 justify-content:center;
-
 padding:20px;
-
 z-index:9999;
 }
 
@@ -353,18 +291,24 @@ display:flex;
 }
 
 .modal{
-
 background:#fff;
-
 width:100%;
-
-max-width:600px;
-
+max-width:650px;
 border-radius:30px;
-
 overflow:hidden;
-
 border:4px solid #000;
+animation:pop .25s ease;
+}
+
+@keyframes pop{
+from{
+transform:scale(.8);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
 }
 
 .dark .modal{
@@ -372,66 +316,58 @@ background:#222;
 }
 
 .modal-header{
-
 background:#FFD93D;
-
 padding:18px;
-
 font-size:30px;
-
 font-weight:900;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.close-btn{
+background:#000;
+color:#fff;
+border:none;
+width:45px;
+height:45px;
+border-radius:12px;
+font-size:22px;
+cursor:pointer;
 }
 
 .modal-body{
-
 padding:25px;
 }
 
 .input{
-
 width:100%;
-
 padding:18px;
-
 font-size:22px;
-
 border-radius:18px;
-
 border:3px solid #000;
 }
 
 .quiz-q{
-
 font-size:38px;
-
 font-weight:900;
-
 margin-bottom:25px;
+text-align:center;
 }
 
 .opts{
-
 display:grid;
-
 gap:15px;
 }
 
 .opt{
-
 padding:18px;
-
 font-size:25px;
-
 font-weight:700;
-
 border-radius:18px;
-
 border:3px solid #000;
-
 cursor:pointer;
-
 background:#fff;
-
 transition:.2s;
 }
 
@@ -441,22 +377,33 @@ transform:scale(1.03);
 
 .correct{
 background:#B5F2A5 !important;
+animation:correctPop .4s;
+}
+
+@keyframes correctPop{
+0%{transform:scale(.8);}
+50%{transform:scale(1.1);}
+100%{transform:scale(1);}
 }
 
 .wrong{
 background:#FFADAD !important;
+animation:shake .3s;
+}
+
+@keyframes shake{
+0%{transform:translateX(0);}
+25%{transform:translateX(-5px);}
+50%{transform:translateX(5px);}
+75%{transform:translateX(-5px);}
+100%{transform:translateX(0);}
 }
 
 .sparkle{
-
 position:fixed;
-
 font-size:30px;
-
 pointer-events:none;
-
 animation:spark 1.5s linear forwards;
-
 z-index:99999;
 }
 
@@ -475,34 +422,21 @@ opacity:0;
 }
 
 canvas{
-
 background:#fff;
-
 border:4px solid #000;
-
 border-radius:25px;
-
 width:100%;
-
 max-width:1000px;
-
 height:400px;
-
 touch-action:none;
 }
 
 .story{
-
 background:#fff;
-
 padding:25px;
-
 border-radius:25px;
-
 border:4px solid #000;
-
 font-size:22px;
-
 line-height:1.8;
 }
 
@@ -511,12 +445,29 @@ background:#222;
 }
 
 footer{
-
 padding:40px 20px;
-
 text-align:center;
-
 font-weight:700;
+font-size:18px;
+}
+
+.progress-wrap{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.progress-card{
+background:#fff;
+border:4px solid #000;
+border-radius:25px;
+padding:25px;
+font-size:22px;
+font-weight:800;
+}
+
+.dark .progress-card{
+background:#222;
 }
 
 </style>
@@ -640,7 +591,7 @@ font-weight:700;
 <h3>Hindi Story</h3>
 </div>
 
-<div class="card c7">
+<div class="card c7" onclick="scrollToDraw()">
 <div class="emoji">🎨</div>
 <h3>Drawing Game</h3>
 </div>
@@ -657,10 +608,44 @@ font-weight:700;
 <section class="section">
 
 <h2>
+Parent Progress Dashboard 👨‍👩‍👧
+</h2>
+
+<div class="progress-wrap">
+
+<div class="progress-card">
+⭐ Total Stars: <span id="pStars">0</span>
+</div>
+
+<div class="progress-card">
+🏆 Current Level: <span id="pLevel">1</span>
+</div>
+
+<div class="progress-card">
+🔥 Daily Streak: <span id="pStreak">1</span>
+</div>
+
+<div class="progress-card">
+🧠 Questions Solved: <span id="pSolved">0</span>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>
 Drawing Zone 🎨
 </h2>
 
 <canvas id="draw"></canvas>
+
+<br><br>
+
+<button class="btn" onclick="clearCanvas()">
+🧹 Clear Drawing
+</button>
 
 </section>
 
@@ -673,7 +658,8 @@ Hindi Story
 <div class="story">
 
 एक बार एक छोटा उल्लू था जिसका नाम गिनू था।  
-वह बच्चों को खेल खेल में पढ़ाता था 😊
+वह बच्चों को खेल खेल में पढ़ाता था 😊  
+हर दिन बच्चे उसके साथ सीखते और मजेदार क्विज खेलते थे 🦉✨
 
 </div>
 
@@ -718,7 +704,15 @@ placeholder="अपना नाम लिखो">
 <div class="modal">
 
 <div class="modal-header">
+
+<span>
 Quiz Time 🎉
+</span>
+
+<button class="close-btn" onclick="closeQuiz()">
+✖
+</button>
+
 </div>
 
 <div class="modal-body">
@@ -736,9 +730,7 @@ Quiz Time 🎉
 <script>
 
 if('serviceWorker' in navigator){
-
 navigator.serviceWorker.register('sw.js');
-
 }
 
 let childName='';
@@ -748,6 +740,8 @@ let stars=0;
 let level=1;
 
 let streak=1;
+
+let solved=0;
 
 let currentType='';
 
@@ -759,17 +753,17 @@ let msg=new SpeechSynthesisUtterance(text);
 
 msg.lang='hi-IN';
 
-msg.rate=0.9;
+msg.rate=0.92;
 
-msg.pitch=1.1;
+msg.pitch=1.15;
 
 let voices=speechSynthesis.getVoices();
 
 let female=voices.find(v=>
 v.lang.includes('hi') &&
 (
-v.name.includes('Google') ||
 v.name.includes('Female') ||
+v.name.includes('Google') ||
 v.name.includes('Natural')
 )
 );
@@ -779,6 +773,7 @@ msg.voice=female;
 }
 
 speechSynthesis.speak(msg);
+
 }
 
 function saveName(){
@@ -820,6 +815,9 @@ document.getElementById('nameModal').classList.remove('show');
 
 document.getElementById('greet').innerHTML=
 `वापस आ गए ${childName}! 😊`;
+
+document.getElementById('bubble').innerHTML=
+`${childName}, आज क्या सीखना है? 🦉`;
 
 femaleVoice(`
 वेलकम बैक ${childName}
@@ -867,6 +865,7 @@ b=Math.floor(Math.random()*10)+1;
 a=ans*b;
 
 q=`${a} ÷ ${b}`;
+
 }
 
 let opts=[ans];
@@ -902,6 +901,13 @@ loadQuestion();
 
 }
 
+function closeQuiz(){
+
+document.getElementById('quizModal')
+.classList.remove('show');
+
+}
+
 function loadQuestion(){
 
 let q=randomQuestion(currentType);
@@ -933,13 +939,13 @@ document.getElementById('opts').innerHTML=html;
 
 function sparkle(){
 
-for(let i=0;i<25;i++){
+for(let i=0;i<35;i++){
 
 let s=document.createElement('div');
 
 s.className='sparkle';
 
-s.innerHTML=['✨','⭐','🎉','🌟'][Math.floor(Math.random()*4)];
+s.innerHTML=['✨','⭐','🎉','🌟','💥'][Math.floor(Math.random()*5)];
 
 s.style.left=Math.random()*window.innerWidth+'px';
 
@@ -971,13 +977,13 @@ osc.connect(gain);
 
 gain.connect(ctx.destination);
 
-gain.gain.value=0.1;
+gain.gain.value=0.12;
 
 osc.start();
 
 osc.frequency.exponentialRampToValueAtTime(
-880,
-ctx.currentTime+0.2
+980,
+ctx.currentTime+0.25
 );
 
 osc.stop(ctx.currentTime+0.25);
@@ -1000,16 +1006,16 @@ osc.connect(gain);
 
 gain.connect(ctx.destination);
 
-gain.gain.value=0.08;
+gain.gain.value=0.09;
 
 osc.start();
 
 osc.frequency.exponentialRampToValueAtTime(
 120,
-ctx.currentTime+0.35
+ctx.currentTime+0.4
 );
 
-osc.stop(ctx.currentTime+0.35);
+osc.stop(ctx.currentTime+0.4);
 
 }
 
@@ -1021,8 +1027,16 @@ btn.classList.add('correct');
 
 stars++;
 
+solved++;
+
+streak++;
+
 if(stars%10===0){
 level++;
+femaleVoice(`
+वाह ${childName},
+तुम अगले लेवल पर पहुँच गए
+`);
 }
 
 updateStats();
@@ -1057,16 +1071,18 @@ femaleVoice(`
 function updateStats(){
 
 document.getElementById('stars').innerHTML=stars;
-
 document.getElementById('s1').innerHTML=stars;
+document.getElementById('pStars').innerHTML=stars;
 
 document.getElementById('level').innerHTML=level;
-
 document.getElementById('l1').innerHTML=level;
+document.getElementById('pLevel').innerHTML=level;
 
 document.getElementById('streak').innerHTML=streak;
-
 document.getElementById('st1').innerHTML=streak;
+document.getElementById('pStreak').innerHTML=streak;
+
+document.getElementById('pSolved').innerHTML=solved;
 
 }
 
@@ -1084,6 +1100,11 @@ femaleVoice(`
 एक बार एक छोटा उल्लू था
 `);
 
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:'smooth'
+});
+
 }
 
 function chatOwl(){
@@ -1091,6 +1112,19 @@ function chatOwl(){
 femaleVoice(`
 हाय ${childName},
 मैं तुम्हारा दोस्त गिनू हूँ
+`);
+
+}
+
+function scrollToDraw(){
+
+document.getElementById('draw')
+.scrollIntoView({
+behavior:'smooth'
+});
+
+femaleVoice(`
+चलो ड्राइंग बनाते हैं
 `);
 
 }
@@ -1106,20 +1140,51 @@ const canvas=document.getElementById('draw');
 
 const ctx=canvas.getContext('2d');
 
-canvas.width=window.innerWidth-60;
+function resizeCanvas(){
+
+canvas.width=canvas.offsetWidth;
+
+canvas.height=400;
+
+}
+
+resizeCanvas();
+
+window.addEventListener('resize',resizeCanvas);
 
 let drawing=false;
 
 canvas.addEventListener('mousedown',()=>{
+
 drawing=true;
+
 });
 
 canvas.addEventListener('mouseup',()=>{
+
 drawing=false;
+
 ctx.beginPath();
+
 });
 
 canvas.addEventListener('mousemove',draw);
+
+canvas.addEventListener('touchstart',()=>{
+
+drawing=true;
+
+});
+
+canvas.addEventListener('touchend',()=>{
+
+drawing=false;
+
+ctx.beginPath();
+
+});
+
+canvas.addEventListener('touchmove',touchDraw);
 
 function draw(e){
 
@@ -1138,6 +1203,46 @@ ctx.stroke();
 ctx.beginPath();
 
 ctx.moveTo(e.offsetX,e.offsetY);
+
+}
+
+function touchDraw(e){
+
+if(!drawing)return;
+
+e.preventDefault();
+
+const rect=canvas.getBoundingClientRect();
+
+const touch=e.touches[0];
+
+const x=touch.clientX-rect.left;
+
+const y=touch.clientY-rect.top;
+
+ctx.lineWidth=5;
+
+ctx.lineCap='round';
+
+ctx.strokeStyle='#000';
+
+ctx.lineTo(x,y);
+
+ctx.stroke();
+
+ctx.beginPath();
+
+ctx.moveTo(x,y);
+
+}
+
+function clearCanvas(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+femaleVoice(`
+ड्राइंग साफ हो गई
+`);
 
 }
 
