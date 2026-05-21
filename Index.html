@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>गिनू उल्लू — सीखना मज़ेदार है!</title>
+<meta name="theme-color" content="#f7d63d" />
+<meta name="description" content="गिनू उल्लू के साथ हिंदी में गणित और विज्ञान सीखें। Quiz, आवाज़ और मज़ा!" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<style>
+    :root{
+        --yellow:#f7d63d;
+        --yellow-dark:#e6c222;
+        --blue:#9edbf4;
+        --blue-dark:#5fb8e6;
+        --ink:#1a1a1a;
+        --white:#fff9e8;
+        --border:4px;
+        --radius:22px;
+        --shadow:0 8px 0 rgba(0,0,0,.18);
+        --shadow-soft:0 12px 30px rgba(0,0,0,.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+        margin:0;
+        font-family:"Noto Sans Devanagari", system-ui, sans-serif;
+        background:linear-gradient(180deg, var(--blue) 0%, #e8f8ff 60%, #fff 100%);
+        color:var(--ink);
+        -webkit-tap-highlight-color:transparent;
+    }
+    /* Header - sticky yellow */
+    header{
+        position:sticky; top:0; z-index:1000;
+        background:var(--yellow);
+        border-bottom:var(--border) solid #000;
+        box-shadow:var(--shadow);
+    }
+    .header-inner{
+        max-width:1100px; margin:0 auto; padding:10px 16px;
+        display:flex; align-items:center; gap:12px;
+    }
+    .logo{
+        display:flex; align-items:center; gap:10px; font-weight:900; font-size:clamp(20px,4vw,28px);
+    }
+    .logo .owl{
+        font-size:34px; background:#000; color:#fff; width:52px; height:52px; display:grid; place-items:center; border-radius:16px; border:3px solid #fff; box-shadow:var(--shadow);
+    }
+    .spacer{flex:1}
+    .pill{
+        background:#000; color:#fff; border:3px solid #fff; border-radius:999px;
+        padding:8px 14px; font-weight:700; display:inline-flex; align-items:center; gap:6px;
+        box-shadow:var(--shadow); cursor:pointer; user-select:none;
+        transition:transform .1s ease;
+    }
+    .pill:active{transform:translateY(2px) scale(.98)}
+    .pill.secondary{background:#fff; color:#000; border-color:#000}
+    .pill.hidden{display:none}
+    .stars{display:flex; align-items:center; gap:4px; font-weight:900}
+    /* Hero */
+    .hero{
+        background:linear-gradient(180deg, #5fb8e6 0%, var(--blue) 100%);
+        border-bottom:var(--border) solid #000;
+        position:relative; overflow:hidden;
+    }
+    .hero-inner{
+        max-width:1100px; margin:0 auto; padding:40px 16px 60px;
+        display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center;
+    }
+    @media (max-width:860px){ .hero-inner{grid-template-columns:1fr; padding:28px 16px 50px} }
+    .hero-owl{
+        font-size:clamp(80px,18vw,160px); line-height:1; filter:drop-shadow(0 12px 0 rgba(0,0,0,.2));
+        text-align:center; animation:floaty 3s ease-in-out infinite;
+    }
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    .hero-card{
+        background:#fff; border:var(--border) solid #000; border-radius:var(--radius);
+        padding:24px; box-shadow:var(--shadow-soft); position:relative;
+    }
+    .greet{
+        font-size:clamp(24px,5vw,40px); font-weight:900; margin:0 0 8px;
+    }
+    .sub{font-size:clamp(16px,2.8vw,20px); opacity:.8; margin:0}
+    /* speech bubble */
+    .bubble{
+        margin-top:16px; background:#000; color:#fff; padding:14px 18px; border-radius:18px; position:relative; font-weight:700; min-height:56px;
+    }
+    .bubble::after{
+        content:""; position:absolute; left:28px; top:100%; width:0; height:0; border:12px solid transparent; border-top-color:#000;
+    }
+    .typing{display:inline-block; border-right:3px solid #fff; white-space:pre-wrap}
+    /* floating shapes */
+    .shape{
+        position:absolute; opacity:.25; pointer-events:none;
+        animation:drift 20s linear infinite;
+    }
+    .shape.s1{top:10%; left:5%; font-size:40px; animation-duration:24s}
+    .shape.s2{top:70%; left:12%; font-size:32px; animation-duration:28s}
+    .shape.s3{top:20%; right:8%; font-size:48px; animation-duration:22s}
+    .shape.s4{bottom:10%; right:15%; font-size:36px; animation-duration:30s}
+    @keyframes drift{
+        0%{transform:translate(0,0) rotate(0)}
+        50%{transform:translate(30px,-40px) rotate(180deg)}
+        100%{transform:translate(0,0) rotate(360deg)}
+    }
+    /* Topics grid */
+    .section{max-width:1100px; margin:0 auto; padding:30px 16px}
+    .section-title{font-size:clamp(22px,4vw,30px); font-weight:900; margin:0 0 16px}
+    .grid{
+        display:grid; grid-template-columns:repeat(2,1fr); gap:18px;
+    }
+    @media (max-width:640px){ .grid{grid-template-columns:1fr} }
+    .card{
+        border:var(--border) solid #000; border-radius:24px; padding:20px;
+        box-shadow:var(--shadow); cursor:pointer; position:relative;
+        transition:transform .15s ease, box-shadow .15s ease;
+        display:flex; align-items:center; gap:16px; min-height:120px;
+        user-select:none;
+    }
+    .card:hover{transform:translateY(-4px) rotate(-0.5deg); box-shadow:0 14px 0 rgba(0,0,0,.18)}
+    .card:active{transform:translateY(2px) scale(.98)}
+    .card .emoji{font-size:56px; background:#000; color:#fff; width:80px; height:80px; display:grid; place-items:center; border-radius:20px; border:3px solid #fff}
+    .card h3{margin:0; font-size:28px; font-weight:900}
+    .card p{margin:4px 0 0; opacity:.85; font-weight:600}
+    /* colors */
+    .c1{background:#ffd65a} .c2{background:#ff9f9f} .c3{background:#a0e7a0} .c4{background:#a0c4ff}
+    .c5{background:#c8b6ff} .c6{background:#ffd6a5} .c7{background:#caffbf} .c8{background:#ffadad}
+    /* Mic section */
+    .mic-wrap{
+        background:#fff; border:var(--border) solid #000; border-radius:var(--radius);
+        padding:22px; box-shadow:var(--shadow-soft); display:flex; flex-wrap:wrap; align-items:center; gap:16px;
+    }
+    .mic-btn{
+        width:72px; height:72px; border-radius:50%; border:var(--border) solid #000;
+        background:var(--yellow); display:grid; place-items:center; font-size:34px; cursor:pointer;
+        box-shadow:var(--shadow); transition:transform .1s;
+    }
+    .mic-btn:active{transform:scale(.94)}
+    .mic-btn.listening{animation:pulse 1.2s infinite}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(247,214,61,.7)}100%{box-shadow:0 0 0 24px rgba(247,214,61,0)}}
+    .mic-text{font-weight:700; flex:1; min-width:200px}
+    /* Footer */
+    footer{padding:40px 16px; text-align:center; opacity:.7; font-weight:600}
+    /* Modals */
+    .modal-backdrop{
+        position:fixed; inset:0; background:rgba(0,0,0,.55); backdrop-filter:blur(3px);
+        display:none; align-items:center; justify-content:center; z-index:2000; padding:16px;
+    }
+    .modal-backdrop.show{display:flex; animation:fadeIn .2s ease}
+    @keyframes fadeIn{from{opacity:0} to{opacity:1}}
+    .modal{
+        background:#fff; border:var(--border) solid #000; border-radius:24px; width:100%; max-width:520px;
+        box-shadow:var(--shadow-soft); transform:scale(.9); opacity:0; animation:popIn .25s ease forwards;
+        max-height:90vh; overflow:auto;
+    }
+    @keyframes popIn{to{transform:scale(1); opacity:1}}
+    .modal header{
+        position:sticky; top:0; background:var(--yellow); border-bottom:var(--border) solid #000;
+        padding:14px 18px; display:flex; align-items:center; gap:10px; border-radius:20px 20px 0 0;
+        box-shadow:none;
+    }
+    .modal header h2{margin:0; font-size:24px; font-weight:900; flex:1}
+    .modal .body{padding:20px}
+    .modal .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .btn{
+        border:var(--border) solid #000; background:#fff; padding:12px 18px; border-radius:14px;
+        font-weight:900; cursor:pointer; box-shadow:var(--shadow); transition:transform .1s;
+    }
+    .btn:active{transform:translateY(2px)}
+    .btn.primary{background:var(--yellow)}
+    .btn.full{width:100%; text-align:center; font-size:20px}
+    .input{
+        width:100%; border:var(--border) solid #000; border-radius:14px; padding:14px 16px;
+        font-size:20px; font-weight:700; font-family:inherit; box-shadow:var(--shadow);
+    }
+    /* Quiz */
+    .quiz-q{font-size:26px; font-weight:900; margin:0 0 16px}
+    .opts{display:grid; gap:12px}
+    .opt{
+        border:var(--border) solid #000; border-radius:16px; padding:14px 16px; font-weight:800; font-size:20px;
+        background:#fff; cursor:pointer; transition:transform .1s, background .2s; box-shadow:var(--shadow);
+    }
+    .opt:hover{transform:translateY(-2px)}
+    .opt.correct{background:#b6f7b6 !important}
+    .opt.wrong{background:#ffc2c2 !important; animation:shake .4s}
+    .opt:disabled{opacity:.7; cursor:not-allowed}
+    @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+    .feedback{margin-top:12px; font-weight:800; min-height:28px}
+    .quiz-actions{margin-top:18px; display:flex; gap:10px; flex-wrap:wrap}
+    .quiz-actions .btn{display:none}
+    .quiz-actions.show-next .next-btn{display:inline-flex}
+    /* Confetti canvas */
+    #confetti{position:fixed; inset:0; pointer-events:none; z-index:3000; display:none}
+    /* Settings list */
+    .list{display:grid; gap:10px}
+    .list-item{display:flex; align-items:center; justify-content:space-between; border:var(--border) solid #000; border-radius:14px; padding:12px 14px; background:#fff; font-weight:700}
+    /* hide scrollbars nice */
+    ::-webkit-scrollbar{width:10px} ::-webkit-scrollbar-track{background:#fff} ::-webkit-scrollbar-thumb{background:#000; border-radius:10px; border:2px solid #fff}
+</style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <div class="logo"><div class="owl">🦉</div> गिनू उल्लू</div>
+            <div class="spacer"></div>
+            <div class="stars pill secondary" id="starPill" title="सितारे">⭐ <span id="starCount">0</span></div>
+            <button class="pill hidden" id="installBtn">📲 Install App</button>
+            <button class="pill" id="parentLockBtn" title="माता-पिता सेटिंग">🔒</button>
+        </div>
+    </header>
+
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="shape s1">✨</div>
+        <div class="shape s2">🌈</div>
+        <div class="shape s3">🪐</div>
+        <div class="shape s4">🌿</div>
+        <div class="hero-inner">
+            <div>
+                <div class="hero-card">
+                    <h1 class="greet" id="greetText">नमस्ते दोस्त!</h1>
+                    <p class="sub">आज हम क्या सीखेंगे?</p>
+                    <div class="bubble" id="bubble"><span class="typing" id="typingText"></span></div>
+                </div>
+            </div>
+            <div class="hero-owl" aria-hidden="true">🦉</div>
+        </div>
+    </section>
+
+
+    <!-- Topics -->
+    <section class="section">
+        <h2 class="section-title">सीखने के विषय</h2>
+        <div class="grid" id="topicGrid">
+            <!-- cards injected by JS -->
+        </div>
+    </section>
+
+
+    <!-- Mic -->
+    <section class="section">
+        <div class="mic-wrap">
+            <button class="mic-btn" id="micBtn" aria-label="बोलो">🎤</button>
+            <div class="mic-text">
+                <strong>गिनू से बात करो!</strong><br>
+                <span id="micStatus">माइक दबाओ और हिंदी में बोलो...</span>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        Made with ❤️ for little learners • गिनू उल्लू © 2025
+    </footer>
+
+
+    <!-- Confetti -->
+    <canvas id="confetti"></canvas>
+
+
+    <!-- Modals -->
+    <div class="modal-backdrop" id="nameModal">
+        <div class="modal">
+            <header><h2>तुम्हारा नाम क्या है?</h2></header>
+            <div class="body">
+                <p style="font-weight:700; margin-top:0">गिनू तुम्हें नाम से बुलाना चाहता है!</p>
+                <input class="input" id="nameInput" placeholder="जैसे: आरव, अनन्या..." maxlength="20" />
+                <div class="actions">
+                    <button class="btn primary full" id="saveNameBtn">चलो शुरू करें 🚀</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-backdrop" id="quizModal">
+        <div class="modal">
+            <header><h2 id="quizTitle">Quiz</h2><button class="btn" id="closeQuiz">✖</button></header>
+            <div class="body">
+                <p class="quiz-q" id="quizQ"></p>
+                <div class="opts" id="quizOpts"></div>
+                <div class="feedback" id="quizFeedback"></div>
+                <div class="quiz-actions" id="quizActions">
+                    <button class="btn primary next-btn" id="nextQBtn">अगला सवाल ➡️</button>
+                    <button class="btn" id="closeQuiz2">बंद करें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-backdrop" id="parentModal">
+        <div class="modal">
+            <header><h2>Parental Lock</h2></header>
+            <div class="body">
+                <p style="font-weight:800; margin-top:0" id="lockQ"></p>
+                <input class="input" id="lockAns" inputmode="numeric" placeholder="उत्तर लिखो" />
+                <div class="actions">
+                    <button class="btn primary" id="unlockBtn">Unlock</button>
+                    <button class="btn" id="cancelLock">रद्द करें</button>
+                </div>
+                <p id="lockMsg" style="font-weight:700; color:#c00; min-height:24px"></p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-backdrop" id="settingsModal">
+        <div class="modal">
+            <header><h2>सेटिंग्स</h2><button class="btn" id="closeSettings">✖</button></header>
+            <div class="body">
+                <div class="list">
+                    <div class="list-item">आवाज़ <button class="btn" id="toggleVoice">🔊 On</button></div>
+                    <div class="list-item">नाम बदलो <button class="btn" id="changeName">✏️</button></div>
+                    <div class="list-item">स्कोर रीसेट <button class="btn" id="resetScore">♻️</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+// ===== Utility & Global State =====
+const $ = s => document.querySelector(s);
+const LS = {
+    name: 'ginu_name',
+    score: 'ginu_score',
+    voice: 'ginu_voice'
+};
+let childName = localStorage.getItem(LS.name) || '';
+let score = parseInt(localStorage.getItem(LS.score) || '0',10);
+let voiceEnabled = localStorage.getItem(LS.voice) !== 'off';
+let deferredPrompt = null;
+
+
+// ===== PWA Manifest is linked in head =====
+// ===== Service Worker Registration =====
+if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('sw.js').catch(console.warn);
+}
+
+
+
+
+// ===== Install Prompt =====
+window.addEventListener('beforeinstallprompt', e=>{
+    e.preventDefault();
+    deferredPrompt = e;
+    $('#installBtn').classList.remove('hidden');
+});
+$('#installBtn').addEventListener('click', async ()=>{
+    if(!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    $('#installBtn').classList.add('hidden');
+});
+
+
+// ===== Personalization =====
+function updateGreeting(){
+    const greet = childName ? `हाय ${childName}! आज क्या सीखें?` : 'नमस्ते दोस्त! आज क्या सीखें?';
+    $('#greetText').textContent = greet;
+    typeBubble('मैं गिनू हूँ! कोई भी कार्ड चुनो, या माइक दबाकर मुझसे बात करो 😊');
+}
+function typeBubble(text){
+    const el = $('#typingText');
+    el.textContent = '';
+    let i=0;
+    const timer = setInterval(()=>{
+        el.textContent = text.slice(0,i++);
+        if(i>text.length){ clearInterval(timer); el.style.borderRight='none'; }
+    }, 28);
+}
+function showNameModal(){
+    $('#nameModal').classList.add('show');
+    setTimeout(()=>$('#nameInput').focus(),200);
+}
+$('#saveNameBtn').addEventListener('click', ()=>{
+    const v = $('#nameInput').value.trim();
+    if(v.length<2){ $('#nameInput').focus(); return; }
+    childName = v;
+    localStorage.setItem(LS.name, childName);
+    $('#nameModal').classList.remove('show');
+    updateGreeting();
+    speak(`वाह ${childName}! चलो सीखते हैं`);
+});
+if(!childName){ showNameModal(); } else { updateGreeting(); }
+
+
+// ===== Stars =====
+function renderStars(){
+    $('#starCount').textContent = Math.floor(score/5);
+}
+renderStars();
+
+
+// ===== Topics Data - Expanded Question Banks =====
+const topics = [
+    {id:'add', title:'जोड़', emoji:'➕', color:'c1', q:[
+        {q:'2 + 3 = ?', opts:['5','4','6'], a:0},
+        {q:'7 + 1 = ?', opts:['8','9','7'], a:0},
+        {q:'4 + 4 = ?', opts:['7','8','9'], a:1},
+        {q:'5 + 5 = ?', opts:['9','10','11'], a:1},
+        {q:'3 + 6 = ?', opts:['8','9','10'], a:1},
+        {q:'10 + 2 = ?', opts:['11','12','13'], a:1},
+        {q:'6 + 3 = ?', opts:['9','8','10'], a:0},
+        {q:'1 + 9 = ?', opts:['10','9','11'], a:0},
+        {q:'8 + 2 = ?', opts:['9','10','8'], a:1},
+        {q:'12 + 3 = ?', opts:['14','15','16'], a:1},
+        {q:'7 + 5 = ?', opts:['11','12','13'], a:1},
+        {q:'9 + 3 = ?', opts:['11','12','13'], a:1}
+    ]},
+    {id:'sub', title:'घटाना', emoji:'➖', color:'c2', q:[
+        {q:'5 - 2 = ?', opts:['2','3','4'], a:1},
+        {q:'9 - 4 = ?', opts:['5','6','4'], a:0},
+        {q:'6 - 6 = ?', opts:['1','0','6'], a:1},
+        {q:'10 - 3 = ?', opts:['6','7','8'], a:1},
+        {q:'8 - 5 = ?', opts:['2','3','4'], a:1},
+        {q:'7 - 2 = ?', opts:['5','4','6'], a:0},
+        {q:'12 - 4 = ?', opts:['8','9','7'], a:0},
+        {q:'15 - 5 = ?', opts:['10','11','9'], a:0},
+        {q:'11 - 7 = ?', opts:['3','4','5'], a:1},
+        {q:'20 - 10 = ?', opts:['10','9','11'], a:0},
+        {q:'14 - 6 = ?', opts:['7','8','9'], a:1},
+        {q:'13 - 8 = ?', opts:['5','6','4'], a:0}
+    ]},
+    {id:'mul', title:'गुणा', emoji:'✖️', color:'c3', q:[
+        {q:'3 × 2 = ?', opts:['5','6','7'], a:1},
+        {q:'2 × 2 = ?', opts:['4','2','6'], a:0},
+        {q:'5 × 1 = ?', opts:['1','5','10'], a:1},
+        {q:'4 × 2 = ?', opts:['6','8','10'], a:1},
+        {q:'3 × 3 = ?', opts:['6','9','12'], a:1},
+        {q:'2 × 5 = ?', opts:['10','12','8'], a:0},
+        {q:'4 × 3 = ?', opts:['12','10','14'], a:0},
+        {q:'5 × 2 = ?', opts:['8','10','12'], a:1},
+        {q:'6 × 2 = ?', opts:['10','12','14'], a:1},
+        {q:'3 × 4 = ?', opts:['11','12','13'], a:1},
+        {q:'7 × 2 = ?', opts:['12','14','16'], a:1},
+        {q:'8 × 2 = ?', opts:['14','16','18'], a:1}
+    ]},
+    {id:'div', title:'भाग', emoji:'÷', color:'c4', q:[
+        {q:'8 ÷ 2 = ?', opts:['3','4','6'], a:1},
+        {q:'6 ÷ 3 = ?', opts:['2','3','1'], a:0},
+        {q:'10 ÷ 2 = ?', opts:['5','4','6'], a:0},
+        {q:'9 ÷ 3 = ?', opts:['2','3','4'], a:1},
+        {q:'12 ÷ 4 = ?', opts:['3','4','5'], a:0},
+        {q:'16 ÷ 4 = ?', opts:['3','4','5'], a:1},
+        {q:'14 ÷ 2 = ?', opts:['6','7','8'], a:1},
+        {q:'20 ÷ 5 = ?', opts:['4','5','6'], a:0},
+        {q:'18 ÷ 3 = ?', opts:['5','6','7'], a:1},
+        {q:'15 ÷ 3 = ?', opts:['4','5','6'], a:1},
+        {q:'24 ÷ 6 = ?', opts:['3','4','5'], a:1},
+        {q:'30 ÷ 5 = ?', opts:['5','6','7'], a:1}
+    ]},
+    {id:'plant', title:'पौधे', emoji:'🌿', color:'c5', q:[
+        {q:'पत्ते का रंग?', opts:['हरा','नीला','लाल'], a:0},
+        {q:'पौधे को क्या चाहिए?', opts:['पानी','कोला','चॉकलेट'], a:0},
+        {q:'फूल कहाँ उगते हैं?', opts:['पौधे पर','पानी में','हवा में'], a:0},
+        {q:'पौधे खाना कैसे बनाते हैं?', opts:['प्रकाश संश्लेषण','खाना खाकर','सोकर'], a:0},
+        {q:'जड़ का काम?', opts:['पानी सोखना','फल देना','उड़ना'], a:0},
+        {q:'बीज से क्या बनता है?', opts:['पौधा','पत्थर','खिलौना'], a:0},
+        {q:'पौधे हमें क्या देते हैं?', opts:['ऑक्सीजन','धुआँ','प्लास्टिक'], a:0},
+        {q:'सूरज की रोशनी कि
