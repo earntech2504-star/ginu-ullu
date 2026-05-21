@@ -73,12 +73,6 @@ align-items:center;
 justify-content:center;
 border-radius:18px;
 font-size:35px;
-animation:floatowl 3s infinite ease-in-out;
-}
-
-@keyframes floatowl{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-6px);}
 }
 
 .top-buttons{
@@ -96,7 +90,6 @@ border-radius:14px;
 font-weight:700;
 cursor:pointer;
 transition:.2s;
-font-size:16px;
 }
 
 .btn:hover{
@@ -159,8 +152,15 @@ animation:float 3s infinite ease-in-out;
 }
 
 @keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-20px);}
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-20px);
+}
+
 }
 
 .section{
@@ -187,22 +187,14 @@ border:4px solid #000;
 cursor:pointer;
 transition:.2s;
 min-height:180px;
-position:relative;
-overflow:hidden;
 }
 
 .card:hover{
-transform:translateY(-10px) rotate(-1deg);
+transform:translateY(-10px);
 }
 
 .emoji{
 font-size:60px;
-animation:bounce 2s infinite;
-}
-
-@keyframes bounce{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-8px);}
 }
 
 .card h3{
@@ -257,26 +249,10 @@ display:flex;
 .modal{
 background:#fff;
 width:100%;
-max-width:600px;
+max-width:650px;
 border-radius:30px;
 overflow:hidden;
 border:4px solid #000;
-animation:popup .25s ease;
-}
-
-@keyframes popup{
-from{
-transform:scale(.8);
-opacity:0;
-}
-to{
-transform:scale(1);
-opacity:1;
-}
-}
-
-.dark .modal{
-background:#222;
 }
 
 .modal-header{
@@ -284,26 +260,6 @@ background:#FFD93D;
 padding:18px;
 font-size:30px;
 font-weight:900;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.close-btn{
-background:#000;
-color:#fff;
-border:none;
-width:45px;
-height:45px;
-border-radius:12px;
-font-size:22px;
-cursor:pointer;
-transition:.2s;
-}
-
-.close-btn:hover{
-transform:scale(1.1);
-background:#ff4d4d;
 }
 
 .modal-body{
@@ -340,51 +296,12 @@ background:#fff;
 transition:.2s;
 }
 
-.opt:hover{
-transform:scale(1.03);
-}
-
 .correct{
 background:#B5F2A5 !important;
-animation:correctpop .4s;
-}
-
-@keyframes correctpop{
-0%{transform:scale(.8);}
-50%{transform:scale(1.1);}
-100%{transform:scale(1);}
 }
 
 .wrong{
 background:#FFADAD !important;
-animation:shake .3s;
-}
-
-@keyframes shake{
-0%{transform:translateX(0);}
-25%{transform:translateX(-5px);}
-50%{transform:translateX(5px);}
-75%{transform:translateX(-5px);}
-100%{transform:translateX(0);}
-}
-
-.sparkle{
-position:fixed;
-font-size:30px;
-pointer-events:none;
-animation:spark 1.5s linear forwards;
-z-index:99999;
-}
-
-@keyframes spark{
-0%{
-transform:translateY(0) scale(1);
-opacity:1;
-}
-100%{
-transform:translateY(-150px) scale(0);
-opacity:0;
-}
 }
 
 canvas{
@@ -392,7 +309,6 @@ background:#fff;
 border:4px solid #000;
 border-radius:25px;
 width:100%;
-max-width:1000px;
 height:400px;
 touch-action:none;
 }
@@ -406,8 +322,37 @@ font-size:22px;
 line-height:1.8;
 }
 
-.dark .story{
-background:#222;
+.chatbox{
+background:#fff;
+padding:20px;
+border-radius:25px;
+border:4px solid #000;
+}
+
+#chatArea{
+height:250px;
+overflow:auto;
+background:#f5f5f5;
+padding:15px;
+border-radius:20px;
+margin-bottom:15px;
+border:2px solid #000;
+}
+
+.msg{
+padding:12px;
+border-radius:18px;
+margin-bottom:10px;
+font-size:20px;
+}
+
+.userMsg{
+background:#DCF8C6;
+}
+
+.botMsg{
+background:#fff;
+border:2px solid #000;
 }
 
 footer{
@@ -436,7 +381,9 @@ font-weight:700;
 
 <div class="top-buttons">
 
-<button class="btn" id="darkBtn">🌙</button>
+<button class="btn" id="darkBtn">
+🌙
+</button>
 
 <button class="btn">
 ⭐ <span id="stars">0</span>
@@ -467,10 +414,8 @@ font-weight:700;
 </h1>
 
 <div class="bubble" id="bubble">
-
-मैं गिनू हूँ 🦉  
+मैं गिनू हूँ  
 चलो मजेदार तरीके से सीखते हैं 😊
-
 </div>
 
 <div class="stats">
@@ -527,22 +472,22 @@ font-weight:700;
 <h3>भाग</h3>
 </div>
 
-<div class="card c5" onclick="animalSound()">
+<div class="card c5" onclick="animalTalk()">
 <div class="emoji">🐘</div>
 <h3>Animal Sounds</h3>
 </div>
 
-<div class="card c6" onclick="showStory()">
+<div class="card c6" onclick="nextStory()">
 <div class="emoji">📖</div>
 <h3>Hindi Story</h3>
 </div>
 
-<div class="card c7" onclick="scrollDraw()">
+<div class="card c7">
 <div class="emoji">🎨</div>
 <h3>Drawing Game</h3>
 </div>
 
-<div class="card c8" onclick="chatOwl()">
+<div class="card c8">
 <div class="emoji">🤖</div>
 <h3>AI Owl Chat</h3>
 </div>
@@ -554,31 +499,93 @@ font-weight:700;
 <section class="section">
 
 <h2>
-Drawing Zone 🎨
+🤖 AI Owl Chat
 </h2>
 
-<canvas id="draw"></canvas>
+<div class="chatbox">
+
+<div id="chatArea">
+
+<div class="msg botMsg">
+नमस्ते 😊  
+मैं गिनू हूँ  
+तुम मुझसे कुछ भी पूछ सकते हो
+</div>
+
+</div>
+
+<input
+type="text"
+class="input"
+id="chatInput"
+placeholder="यहाँ लिखो...">
 
 <br><br>
 
-<button class="btn" onclick="clearCanvas()">
-🧹 Clear Drawing
+<button class="btn" onclick="sendChat()">
+भेजो
 </button>
+
+</div>
 
 </section>
 
 <section class="section">
 
 <h2>
-Hindi Story
+📖 Interactive Story
 </h2>
 
-<div class="story">
+<div class="story" id="storyBox">
 
-एक बार एक छोटा उल्लू था जिसका नाम गिनू था।  
-वह बच्चों को खेल खेल में पढ़ाता था 😊
+एक दिन गिनू जंगल में घूम रहा था 😊
+
+<br><br>
+
+<button class="btn" onclick="nextStory()">
+आगे सुनो
+</button>
 
 </div>
+
+</section>
+
+<section class="section">
+
+<h2>
+🎨 Drawing Zone
+</h2>
+
+<div style="
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:15px;
+">
+
+<button class="btn" onclick="changeColor('#000')">
+Black
+</button>
+
+<button class="btn" onclick="changeColor('red')">
+Red
+</button>
+
+<button class="btn" onclick="changeColor('blue')">
+Blue
+</button>
+
+<button class="btn" onclick="changeColor('green')">
+Green
+</button>
+
+<button class="btn" onclick="clearCanvas()">
+Clear
+</button>
+
+</div>
+
+<canvas id="draw"></canvas>
 
 </section>
 
@@ -621,18 +628,44 @@ placeholder="अपना नाम लिखो">
 <div class="modal">
 
 <div class="modal-header">
-
-<span>
 Quiz Time 🎉
-</span>
+</div>
 
-<button class="close-btn" onclick="closeQuiz()">
-✖
+<div class="modal-body">
+
+<div style="
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:20px;
+">
+
+<button class="btn" onclick="closeQuiz()">
+Close
+</button>
+
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+
+<button class="btn" onclick="switchQuiz('add')">
+➕
+</button>
+
+<button class="btn" onclick="switchQuiz('sub')">
+➖
+</button>
+
+<button class="btn" onclick="switchQuiz('mul')">
+✖️
+</button>
+
+<button class="btn" onclick="switchQuiz('div')">
+➗
 </button>
 
 </div>
 
-<div class="modal-body">
+</div>
 
 <div class="quiz-q" id="qq"></div>
 
@@ -646,47 +679,39 @@ Quiz Time 🎉
 
 <script>
 
+window.onerror=function(msg,url,line){
+console.log(msg,line);
+};
+
 if('serviceWorker' in navigator){
-
 navigator.serviceWorker.register('sw.js');
-
 }
 
 let childName='';
-
 let stars=0;
-
 let level=1;
-
 let streak=1;
-
 let currentType='';
 
 function femaleVoice(text){
 
 speechSynthesis.cancel();
 
-let msg=new SpeechSynthesisUtterance(text);
+let cleanText=text
+.replace(/[^\u0900-\u097Fa-zA-Z0-9 ]/g,'');
+
+let msg=new SpeechSynthesisUtterance(cleanText);
 
 msg.lang='hi-IN';
-
-msg.rate=0.9;
-
+msg.rate=0.85;
 msg.pitch=1.1;
 
 let voices=speechSynthesis.getVoices();
 
-let female=voices.find(v=>
-v.lang.includes('hi') &&
-(
-v.name.includes('Google') ||
-v.name.includes('Female') ||
-v.name.includes('Natural')
-)
-);
+let voice=voices.find(v=>v.lang.includes('hi'));
 
-if(female){
-msg.voice=female;
+if(voice){
+msg.voice=voice;
 }
 
 speechSynthesis.speak(msg);
@@ -703,18 +728,13 @@ childName=v;
 
 localStorage.setItem('ginuName',v);
 
-document.getElementById('nameModal').classList.remove('show');
+document.getElementById('nameModal')
+.classList.remove('show');
 
-document.getElementById('greet').innerHTML=
-`हाय ${childName}! 😊`;
+document.getElementById('greet')
+.innerHTML=`हाय ${childName}! 😊`;
 
-document.getElementById('bubble').innerHTML=
-`${childName}, चलो मजेदार तरीके से सीखते हैं 🦉`;
-
-femaleVoice(`
-नमस्ते ${childName},
-गिनू उल्लू में तुम्हारा स्वागत है
-`);
+femaleVoice(`नमस्ते ${childName}`);
 
 startQuiz('add');
 
@@ -731,41 +751,21 @@ childName=saved;
 document.getElementById('nameModal')
 .classList.remove('show');
 
-document.getElementById('greet').innerHTML=
-`वापस आ गए ${childName}! 😊`;
+document.getElementById('greet')
+.innerHTML=`वापस आ गए ${childName}! 😊`;
 
-document.getElementById('bubble').innerHTML=
-`${childName}, आज क्या सीखना है? 🦉`;
-
-setTimeout(()=>{
-
-femaleVoice(`
-वेलकम बैक ${childName}
-`);
-
-},700);
+femaleVoice(`वेलकम बैक ${childName}`);
 
 }
 
 };
 
-document.getElementById('nameInput')
-.addEventListener('keypress',function(e){
-
-if(e.key==='Enter'){
-saveName();
-}
-
-});
-
 function randomQuestion(type){
 
 let a=Math.floor(Math.random()*20)+1;
-
 let b=Math.floor(Math.random()*20)+1;
 
 let q='';
-
 let ans=0;
 
 if(type==='add'){
@@ -778,8 +778,8 @@ if(type==='sub'){
 if(b>a)[a,b]=[b,a];
 
 q=`${a} - ${b}`;
-
 ans=a-b;
+
 }
 
 if(type==='mul'){
@@ -832,13 +832,6 @@ loadQuestion();
 
 }
 
-function closeQuiz(){
-
-document.getElementById('quizModal')
-.classList.remove('show');
-
-}
-
 function loadQuestion(){
 
 let q=randomQuestion(currentType);
@@ -868,88 +861,6 @@ document.getElementById('opts').innerHTML=html;
 
 }
 
-function sparkle(){
-
-for(let i=0;i<25;i++){
-
-let s=document.createElement('div');
-
-s.className='sparkle';
-
-s.innerHTML=['✨','⭐','🎉','🌟'][Math.floor(Math.random()*4)];
-
-s.style.left=Math.random()*window.innerWidth+'px';
-
-s.style.top=(window.innerHeight-100)+'px';
-
-document.body.appendChild(s);
-
-setTimeout(()=>{
-s.remove();
-},1500);
-
-}
-
-}
-
-function successTone(){
-
-const ctx=new(window.AudioContext||window.webkitAudioContext)();
-
-const osc=ctx.createOscillator();
-
-const gain=ctx.createGain();
-
-osc.type='triangle';
-
-osc.frequency.value=620;
-
-osc.connect(gain);
-
-gain.connect(ctx.destination);
-
-gain.gain.value=0.1;
-
-osc.start();
-
-osc.frequency.exponentialRampToValueAtTime(
-880,
-ctx.currentTime+0.2
-);
-
-osc.stop(ctx.currentTime+0.25);
-
-}
-
-function failTone(){
-
-const ctx=new(window.AudioContext||window.webkitAudioContext)();
-
-const osc=ctx.createOscillator();
-
-const gain=ctx.createGain();
-
-osc.type='sawtooth';
-
-osc.frequency.value=240;
-
-osc.connect(gain);
-
-gain.connect(ctx.destination);
-
-gain.gain.value=0.08;
-
-osc.start();
-
-osc.frequency.exponentialRampToValueAtTime(
-120,
-ctx.currentTime+0.35
-);
-
-osc.stop(ctx.currentTime+0.35);
-
-}
-
 function checkAnswer(btn,val,ans){
 
 if(val===ans){
@@ -958,21 +869,13 @@ btn.classList.add('correct');
 
 stars++;
 
-streak++;
-
 if(stars%10===0){
 level++;
 }
 
 updateStats();
 
-sparkle();
-
-successTone();
-
-femaleVoice(`
-बहुत बढ़िया ${childName}
-`);
+femaleVoice('बहुत बढ़िया');
 
 setTimeout(()=>{
 loadQuestion();
@@ -982,12 +885,7 @@ loadQuestion();
 
 btn.classList.add('wrong');
 
-failTone();
-
-femaleVoice(`
-ओह ${childName},
-फिर से कोशिश करो
-`);
+femaleVoice('फिर कोशिश करो');
 
 }
 
@@ -996,52 +894,199 @@ femaleVoice(`
 function updateStats(){
 
 document.getElementById('stars').innerHTML=stars;
-
 document.getElementById('s1').innerHTML=stars;
 
 document.getElementById('level').innerHTML=level;
-
 document.getElementById('l1').innerHTML=level;
 
 document.getElementById('streak').innerHTML=streak;
-
 document.getElementById('st1').innerHTML=streak;
 
 }
 
-function animalSound(){
+function closeQuiz(){
 
-femaleVoice(`
-यह हाथी की आवाज है
-`);
-
-}
-
-function showStory(){
-
-femaleVoice(`
-एक बार एक छोटा उल्लू था
-`);
+document.getElementById('quizModal')
+.classList.remove('show');
 
 }
 
-function chatOwl(){
+function switchQuiz(type){
 
-femaleVoice(`
-हाय ${childName},
-मैं तुम्हारा दोस्त गिनू हूँ
-`);
+currentType=type;
+
+loadQuestion();
 
 }
 
-function scrollDraw(){
+const stories=[
 
-document.getElementById('draw')
-.scrollIntoView({
-behavior:'smooth'
+"एक दिन गिनू जंगल में घूम रहा था 😊",
+
+"उसे एक प्यारा खरगोश मिला 😊",
+
+"दोनों अच्छे दोस्त बन गए 😊"
+
+];
+
+let storyStep=0;
+
+function nextStory(){
+
+storyStep++;
+
+if(storyStep>=stories.length){
+storyStep=0;
+}
+
+document.getElementById('storyBox')
+.innerHTML=`
+
+${stories[storyStep]}
+
+<br><br>
+
+<button class="btn" onclick="nextStory()">
+आगे सुनो
+</button>
+
+`;
+
+femaleVoice(stories[storyStep]);
+
+}
+
+function animalTalk(){
+
+femaleVoice('हाथी बहुत बड़ा जानवर होता है');
+
+}
+
+function sendChat(){
+
+let input=document.getElementById('chatInput');
+
+let msg=input.value.trim();
+
+if(!msg)return;
+
+let area=document.getElementById('chatArea');
+
+area.innerHTML += `
+<div class="msg userMsg">
+${msg}
+</div>
+`;
+
+let m=msg.toLowerCase();
+
+let reply='';
+
+if(
+m.includes('hello') ||
+m.includes('hi') ||
+m.includes('namaste')
+){
+
+reply=`नमस्ते ${childName} 😊`;
+
+}
+
+else if(
+m.includes('moon') ||
+m.includes('space')
+){
+
+reply='चाँद रात में चमकता है 😊';
+
+}
+
+else if(
+m.includes('lion')
+){
+
+reply='शेर जंगल का राजा कहलाता है 😊';
+
+}
+
+else if(
+m.includes('math')
+){
+
+reply='गणित खेल खेल में सीखना मजेदार है 😊';
+
+}
+
+else if(
+m.includes('+') ||
+m.includes('-') ||
+m.includes('*') ||
+m.includes('/')
+){
+
+try{
+
+let exp=m.replace(/x/g,'*');
+
+let result=
+Function('"use strict"; return ('+exp+')')();
+
+reply=`इसका जवाब ${result} है 😊`;
+
+}catch(e){
+
+reply='मुझे समझ नहीं आया 😊';
+
+}
+
+}
+
+else{
+
+const arr=[
+
+'वाह 😊',
+
+'बहुत रोचक 😊',
+
+'इसके बारे में और बताओ 😊',
+
+'मैं सुन रही हूँ 😊'
+
+];
+
+reply=
+arr[Math.floor(Math.random()*arr.length)];
+
+}
+
+setTimeout(()=>{
+
+area.innerHTML += `
+<div class="msg botMsg">
+${reply}
+</div>
+`;
+
+area.scrollTop=area.scrollHeight;
+
+femaleVoice(reply);
+
+},600);
+
+input.value='';
+
+}
+
+document
+.getElementById('chatInput')
+.addEventListener('keypress',function(e){
+
+if(e.key==='Enter'){
+sendChat();
+}
+
 });
-
-}
 
 document.getElementById('darkBtn')
 .onclick=()=>{
@@ -1054,9 +1099,11 @@ const canvas=document.getElementById('draw');
 
 const ctx=canvas.getContext('2d');
 
-canvas.width=window.innerWidth-60;
+canvas.width=Math.min(window.innerWidth-60,1000);
 
 let drawing=false;
+
+let drawColor='#000';
 
 canvas.addEventListener('mousedown',()=>{
 drawing=true;
@@ -1077,7 +1124,7 @@ ctx.lineWidth=5;
 
 ctx.lineCap='round';
 
-ctx.strokeStyle='#000';
+ctx.strokeStyle=drawColor;
 
 ctx.lineTo(e.offsetX,e.offsetY);
 
@@ -1089,13 +1136,24 @@ ctx.moveTo(e.offsetX,e.offsetY);
 
 }
 
+function changeColor(c){
+
+drawColor=c;
+
+femaleVoice('रंग बदल गया');
+
+}
+
 function clearCanvas(){
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
-femaleVoice(`
-ड्राइंग साफ हो गई
-`);
+femaleVoice('ड्राइंग साफ हो गई');
 
 }
 
