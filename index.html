@@ -29,7 +29,6 @@ background:linear-gradient(to bottom,#8ED6FF,#ffffff);
 overflow-x:hidden;
 color:#111;
 transition:.3s;
-min-height:100vh;
 }
 
 .dark{
@@ -74,13 +73,12 @@ align-items:center;
 justify-content:center;
 border-radius:18px;
 font-size:35px;
-animation:wiggle 3s infinite;
+animation:floatowl 3s infinite ease-in-out;
 }
 
-@keyframes wiggle{
-0%,100%{transform:rotate(0deg);}
-25%{transform:rotate(5deg);}
-75%{transform:rotate(-5deg);}
+@keyframes floatowl{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-6px);}
 }
 
 .top-buttons{
@@ -132,19 +130,6 @@ padding:30px;
 border-radius:30px;
 border:4px solid #000;
 box-shadow:0 10px 0 rgba(0,0,0,.2);
-position:relative;
-overflow:hidden;
-}
-
-.hero-card::after{
-content:'';
-position:absolute;
-width:200px;
-height:200px;
-background:rgba(255,255,255,.3);
-border-radius:50%;
-top:-50px;
-right:-50px;
 }
 
 .dark .hero-card{
@@ -171,19 +156,11 @@ line-height:1.6;
 font-size:180px;
 text-align:center;
 animation:float 3s infinite ease-in-out;
-filter:drop-shadow(0 10px 10px rgba(0,0,0,.2));
 }
 
 @keyframes float{
-
-0%,100%{
-transform:translateY(0);
-}
-
-50%{
-transform:translateY(-20px);
-}
-
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
 }
 
 .section{
@@ -208,27 +185,14 @@ padding:25px;
 border-radius:25px;
 border:4px solid #000;
 cursor:pointer;
-transition:.25s;
+transition:.2s;
 min-height:180px;
 position:relative;
 overflow:hidden;
 }
 
-.card::before{
-content:'';
-position:absolute;
-inset:0;
-background:rgba(255,255,255,.15);
-opacity:0;
-transition:.2s;
-}
-
-.card:hover::before{
-opacity:1;
-}
-
 .card:hover{
-transform:translateY(-10px) rotate(-1deg) scale(1.02);
+transform:translateY(-10px) rotate(-1deg);
 }
 
 .emoji{
@@ -293,14 +257,14 @@ display:flex;
 .modal{
 background:#fff;
 width:100%;
-max-width:650px;
+max-width:600px;
 border-radius:30px;
 overflow:hidden;
 border:4px solid #000;
-animation:pop .25s ease;
+animation:popup .25s ease;
 }
 
-@keyframes pop{
+@keyframes popup{
 from{
 transform:scale(.8);
 opacity:0;
@@ -334,6 +298,12 @@ height:45px;
 border-radius:12px;
 font-size:22px;
 cursor:pointer;
+transition:.2s;
+}
+
+.close-btn:hover{
+transform:scale(1.1);
+background:#ff4d4d;
 }
 
 .modal-body{
@@ -352,7 +322,6 @@ border:3px solid #000;
 font-size:38px;
 font-weight:900;
 margin-bottom:25px;
-text-align:center;
 }
 
 .opts{
@@ -377,10 +346,10 @@ transform:scale(1.03);
 
 .correct{
 background:#B5F2A5 !important;
-animation:correctPop .4s;
+animation:correctpop .4s;
 }
 
-@keyframes correctPop{
+@keyframes correctpop{
 0%{transform:scale(.8);}
 50%{transform:scale(1.1);}
 100%{transform:scale(1);}
@@ -408,17 +377,14 @@ z-index:99999;
 }
 
 @keyframes spark{
-
 0%{
 transform:translateY(0) scale(1);
 opacity:1;
 }
-
 100%{
 transform:translateY(-150px) scale(0);
 opacity:0;
 }
-
 }
 
 canvas{
@@ -448,26 +414,6 @@ footer{
 padding:40px 20px;
 text-align:center;
 font-weight:700;
-font-size:18px;
-}
-
-.progress-wrap{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-}
-
-.progress-card{
-background:#fff;
-border:4px solid #000;
-border-radius:25px;
-padding:25px;
-font-size:22px;
-font-weight:800;
-}
-
-.dark .progress-card{
-background:#222;
 }
 
 </style>
@@ -591,7 +537,7 @@ background:#222;
 <h3>Hindi Story</h3>
 </div>
 
-<div class="card c7" onclick="scrollToDraw()">
+<div class="card c7" onclick="scrollDraw()">
 <div class="emoji">🎨</div>
 <h3>Drawing Game</h3>
 </div>
@@ -599,34 +545,6 @@ background:#222;
 <div class="card c8" onclick="chatOwl()">
 <div class="emoji">🤖</div>
 <h3>AI Owl Chat</h3>
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2>
-Parent Progress Dashboard 👨‍👩‍👧
-</h2>
-
-<div class="progress-wrap">
-
-<div class="progress-card">
-⭐ Total Stars: <span id="pStars">0</span>
-</div>
-
-<div class="progress-card">
-🏆 Current Level: <span id="pLevel">1</span>
-</div>
-
-<div class="progress-card">
-🔥 Daily Streak: <span id="pStreak">1</span>
-</div>
-
-<div class="progress-card">
-🧠 Questions Solved: <span id="pSolved">0</span>
 </div>
 
 </div>
@@ -658,8 +576,7 @@ Hindi Story
 <div class="story">
 
 एक बार एक छोटा उल्लू था जिसका नाम गिनू था।  
-वह बच्चों को खेल खेल में पढ़ाता था 😊  
-हर दिन बच्चे उसके साथ सीखते और मजेदार क्विज खेलते थे 🦉✨
+वह बच्चों को खेल खेल में पढ़ाता था 😊
 
 </div>
 
@@ -730,7 +647,9 @@ Quiz Time 🎉
 <script>
 
 if('serviceWorker' in navigator){
+
 navigator.serviceWorker.register('sw.js');
+
 }
 
 let childName='';
@@ -740,8 +659,6 @@ let stars=0;
 let level=1;
 
 let streak=1;
-
-let solved=0;
 
 let currentType='';
 
@@ -753,17 +670,17 @@ let msg=new SpeechSynthesisUtterance(text);
 
 msg.lang='hi-IN';
 
-msg.rate=0.92;
+msg.rate=0.9;
 
-msg.pitch=1.15;
+msg.pitch=1.1;
 
 let voices=speechSynthesis.getVoices();
 
 let female=voices.find(v=>
 v.lang.includes('hi') &&
 (
-v.name.includes('Female') ||
 v.name.includes('Google') ||
+v.name.includes('Female') ||
 v.name.includes('Natural')
 )
 );
@@ -811,7 +728,8 @@ if(saved){
 
 childName=saved;
 
-document.getElementById('nameModal').classList.remove('show');
+document.getElementById('nameModal')
+.classList.remove('show');
 
 document.getElementById('greet').innerHTML=
 `वापस आ गए ${childName}! 😊`;
@@ -819,13 +737,26 @@ document.getElementById('greet').innerHTML=
 document.getElementById('bubble').innerHTML=
 `${childName}, आज क्या सीखना है? 🦉`;
 
+setTimeout(()=>{
+
 femaleVoice(`
 वेलकम बैक ${childName}
 `);
 
+},700);
+
 }
 
 };
+
+document.getElementById('nameInput')
+.addEventListener('keypress',function(e){
+
+if(e.key==='Enter'){
+saveName();
+}
+
+});
 
 function randomQuestion(type){
 
@@ -939,13 +870,13 @@ document.getElementById('opts').innerHTML=html;
 
 function sparkle(){
 
-for(let i=0;i<35;i++){
+for(let i=0;i<25;i++){
 
 let s=document.createElement('div');
 
 s.className='sparkle';
 
-s.innerHTML=['✨','⭐','🎉','🌟','💥'][Math.floor(Math.random()*5)];
+s.innerHTML=['✨','⭐','🎉','🌟'][Math.floor(Math.random()*4)];
 
 s.style.left=Math.random()*window.innerWidth+'px';
 
@@ -977,13 +908,13 @@ osc.connect(gain);
 
 gain.connect(ctx.destination);
 
-gain.gain.value=0.12;
+gain.gain.value=0.1;
 
 osc.start();
 
 osc.frequency.exponentialRampToValueAtTime(
-980,
-ctx.currentTime+0.25
+880,
+ctx.currentTime+0.2
 );
 
 osc.stop(ctx.currentTime+0.25);
@@ -1006,16 +937,16 @@ osc.connect(gain);
 
 gain.connect(ctx.destination);
 
-gain.gain.value=0.09;
+gain.gain.value=0.08;
 
 osc.start();
 
 osc.frequency.exponentialRampToValueAtTime(
 120,
-ctx.currentTime+0.4
+ctx.currentTime+0.35
 );
 
-osc.stop(ctx.currentTime+0.4);
+osc.stop(ctx.currentTime+0.35);
 
 }
 
@@ -1027,16 +958,10 @@ btn.classList.add('correct');
 
 stars++;
 
-solved++;
-
 streak++;
 
 if(stars%10===0){
 level++;
-femaleVoice(`
-वाह ${childName},
-तुम अगले लेवल पर पहुँच गए
-`);
 }
 
 updateStats();
@@ -1071,18 +996,16 @@ femaleVoice(`
 function updateStats(){
 
 document.getElementById('stars').innerHTML=stars;
+
 document.getElementById('s1').innerHTML=stars;
-document.getElementById('pStars').innerHTML=stars;
 
 document.getElementById('level').innerHTML=level;
+
 document.getElementById('l1').innerHTML=level;
-document.getElementById('pLevel').innerHTML=level;
 
 document.getElementById('streak').innerHTML=streak;
-document.getElementById('st1').innerHTML=streak;
-document.getElementById('pStreak').innerHTML=streak;
 
-document.getElementById('pSolved').innerHTML=solved;
+document.getElementById('st1').innerHTML=streak;
 
 }
 
@@ -1100,11 +1023,6 @@ femaleVoice(`
 एक बार एक छोटा उल्लू था
 `);
 
-window.scrollTo({
-top:document.body.scrollHeight,
-behavior:'smooth'
-});
-
 }
 
 function chatOwl(){
@@ -1116,16 +1034,12 @@ femaleVoice(`
 
 }
 
-function scrollToDraw(){
+function scrollDraw(){
 
 document.getElementById('draw')
 .scrollIntoView({
 behavior:'smooth'
 });
-
-femaleVoice(`
-चलो ड्राइंग बनाते हैं
-`);
 
 }
 
@@ -1140,51 +1054,20 @@ const canvas=document.getElementById('draw');
 
 const ctx=canvas.getContext('2d');
 
-function resizeCanvas(){
-
-canvas.width=canvas.offsetWidth;
-
-canvas.height=400;
-
-}
-
-resizeCanvas();
-
-window.addEventListener('resize',resizeCanvas);
+canvas.width=window.innerWidth-60;
 
 let drawing=false;
 
 canvas.addEventListener('mousedown',()=>{
-
 drawing=true;
-
 });
 
 canvas.addEventListener('mouseup',()=>{
-
 drawing=false;
-
 ctx.beginPath();
-
 });
 
 canvas.addEventListener('mousemove',draw);
-
-canvas.addEventListener('touchstart',()=>{
-
-drawing=true;
-
-});
-
-canvas.addEventListener('touchend',()=>{
-
-drawing=false;
-
-ctx.beginPath();
-
-});
-
-canvas.addEventListener('touchmove',touchDraw);
 
 function draw(e){
 
@@ -1203,36 +1086,6 @@ ctx.stroke();
 ctx.beginPath();
 
 ctx.moveTo(e.offsetX,e.offsetY);
-
-}
-
-function touchDraw(e){
-
-if(!drawing)return;
-
-e.preventDefault();
-
-const rect=canvas.getBoundingClientRect();
-
-const touch=e.touches[0];
-
-const x=touch.clientX-rect.left;
-
-const y=touch.clientY-rect.top;
-
-ctx.lineWidth=5;
-
-ctx.lineCap='round';
-
-ctx.strokeStyle='#000';
-
-ctx.lineTo(x,y);
-
-ctx.stroke();
-
-ctx.beginPath();
-
-ctx.moveTo(x,y);
 
 }
 
